@@ -42,7 +42,7 @@ public class climbingPIDStep extends Command {
         Robot.intakeSubsystem.handlerPositionBackward();
         Robot.clawSubsystem.raiseClaw();
         Robot.intakeSubsystem.stopRollers();
-        Robot.elevatorSubsystem.setBrakeState(true);
+        Robot.elevatorPIDSubsystem.setBrakeState(true);
     }
 
     // Called repeatedly when this Command is scheduled to run

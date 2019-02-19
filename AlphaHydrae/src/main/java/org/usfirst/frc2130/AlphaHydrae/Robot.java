@@ -37,7 +37,6 @@ public class Robot extends TimedRobot {
     public static intakeSubsystem intakeSubsystem;
     public static clawSubsystem clawSubsystem;
     public static limelightSubsystem limelightSubsystem;
-    public static elevatorSubsystem elevatorSubsystem;
     public static elevatorPIDSubsystem elevatorPIDSubsystem;
     public static shiftingSubsystem shiftingSubsystem;
     public static rocketSubsystem rocketSubsystem;
@@ -58,7 +57,6 @@ public class Robot extends TimedRobot {
         intakeSubsystem = new intakeSubsystem();
         clawSubsystem = new clawSubsystem();
         limelightSubsystem = new limelightSubsystem();
-        elevatorSubsystem = new elevatorSubsystem();
         elevatorPIDSubsystem = new elevatorPIDSubsystem();
         shiftingSubsystem = new shiftingSubsystem();
         rocketSubsystem = new rocketSubsystem();
@@ -101,7 +99,7 @@ public class Robot extends TimedRobot {
         // schedule the autonomous command (example)
         //if (autonomousCommand != null) autonomousCommand.start();
 
-        Robot.elevatorSubsystem.startupRoutine();
+        Robot.elevatorPIDSubsystem.startupRoutine();
         Robot.limelightSubsystem.setPipelineBooleanValue(false);
         Robot.intakeSubsystem.startingPosition();
     }
@@ -125,12 +123,12 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
 
         Robot.limelightSubsystem.setPipelineBooleanValue(false);
-        Robot.elevatorSubsystem.startupRoutine();
+        Robot.elevatorPIDSubsystem.startupRoutine();
         Robot.intakeSubsystem.startingPosition();
         Robot.climbingPIDSubsystem.zeroEncoder();
-        Robot.elevatorSubsystem.zeroElevatorEncoder();
+        Robot.elevatorPIDSubsystem.zeroElevatorEncoder();
         Robot.clawSubsystem.raiseClaw();
-        Robot.elevatorSubsystem.resetpeakoutput();
+        Robot.elevatorPIDSubsystem.resetpeakoutput();
     }
 
     /**
@@ -140,13 +138,13 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
 
-        Robot.elevatorSubsystem.homeEncoder();
+        Robot.elevatorPIDSubsystem.homeEncoder();
         SmartDashboard.putNumber("motorOutput", Robot.elevatorPIDSubsystem.motorOutput());
 
-        SmartDashboard.putString("Desired Prox", Robot.elevatorSubsystem.returnDesiredProx());
-        SmartDashboard.putBoolean("Low Prox", Robot.elevatorSubsystem.getProx("Low"));
-        SmartDashboard.putBoolean("Mid Prox", Robot.elevatorSubsystem.getProx("Mid"));
-        SmartDashboard.putBoolean("Max Prox", Robot.elevatorSubsystem.getProx("Max"));
+        SmartDashboard.putString("Desired Prox", Robot.elevatorPIDSubsystem.returnDesiredProx());
+        SmartDashboard.putBoolean("Low Prox", Robot.elevatorPIDSubsystem.getProx("Low"));
+        SmartDashboard.putBoolean("Mid Prox", Robot.elevatorPIDSubsystem.getProx("Mid"));
+        SmartDashboard.putBoolean("Max Prox", Robot.elevatorPIDSubsystem.getProx("Max"));
         SmartDashboard.putBoolean("FTop Prox", Robot.climbingPIDSubsystem.getProx(true));
         SmartDashboard.putBoolean("FBottom Prox", Robot.climbingPIDSubsystem.getProx(false));
         SmartDashboard.putBoolean("Pipeline Boolean", Robot.limelightSubsystem.pipelineBooleanValue());
@@ -154,7 +152,6 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("X", Robot.driveTrainSubsystem.returnLX());
         SmartDashboard.putNumber("Output Value", Robot.driveTrainSubsystem.forwardUsingArea());
         SmartDashboard.putNumber("Offset", Robot.driveTrainSubsystem.createOffset());
-        SmartDashboard.putNumber("EL Enconder", Robot.elevatorSubsystem.elevatorEncoderValue());
-        SmartDashboard.putNumber("Foot Enconder", Robot.elevatorSubsystem.elevatorEncoderValue());
+        SmartDashboard.putNumber("Foot Enconder", Robot.climbingPIDSubsystem.footEncoderValue());
     }
 }
