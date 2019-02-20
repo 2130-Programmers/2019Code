@@ -123,12 +123,12 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
 
         Robot.limelightSubsystem.setPipelineBooleanValue(false);
-        Robot.elevatorPIDSubsystem.startupRoutine();
         Robot.intakeSubsystem.startingPosition();
         Robot.climbingPIDSubsystem.zeroEncoder();
-        Robot.elevatorPIDSubsystem.zeroElevatorEncoder();
+        Robot.elevatorPIDSubsystem.zeroTheTalon();
         Robot.clawSubsystem.raiseClaw();
         Robot.elevatorPIDSubsystem.resetpeakoutput();
+        Robot.elevatorPIDSubsystem.startupRoutine();
     }
 
     /**
@@ -148,10 +148,12 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("FTop Prox", Robot.climbingPIDSubsystem.getProx(true));
         SmartDashboard.putBoolean("FBottom Prox", Robot.climbingPIDSubsystem.getProx(false));
         SmartDashboard.putBoolean("Pipeline Boolean", Robot.limelightSubsystem.pipelineBooleanValue());
+        SmartDashboard.putBoolean("atClimbingLevel", Robot.elevatorPIDSubsystem.returnAtClimbingSetpoint());
         SmartDashboard.putNumber("Pipeline Value", Robot.limelightSubsystem.currentPipelineValue());
         SmartDashboard.putNumber("X", Robot.driveTrainSubsystem.returnLX());
         SmartDashboard.putNumber("Output Value", Robot.driveTrainSubsystem.forwardUsingArea());
         SmartDashboard.putNumber("Offset", Robot.driveTrainSubsystem.createOffset());
         SmartDashboard.putNumber("Foot Enconder", Robot.climbingPIDSubsystem.footEncoderValue());
+        SmartDashboard.putNumber("Elevator Enconder", Robot.elevatorPIDSubsystem.elevatorEncoderValue());
     }
 }

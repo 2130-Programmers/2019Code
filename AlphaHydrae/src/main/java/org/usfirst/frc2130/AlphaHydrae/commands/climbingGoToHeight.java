@@ -46,19 +46,20 @@ public class climbingGoToHeight extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-    	Robot.elevatorPIDSubsystem.setSetpointWithBrake(100);
+    	Robot.elevatorPIDSubsystem.climbingSetpointWithBrake(19500);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return Robot.elevatorPIDSubsystem.setpointCheck(100);
+        return Robot.elevatorPIDSubsystem.returnAtClimbingSetpoint();
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
-    	Robot.elevatorPIDSubsystem.disable();
+        Robot.elevatorPIDSubsystem.disable();
+        Robot.elevatorPIDSubsystem.setBrakeState(false);
         Robot.elevatorPIDSubsystem.stopAllMotors();
         Robot.elevatorPIDSubsystem.engageClimbingFeet();
     }

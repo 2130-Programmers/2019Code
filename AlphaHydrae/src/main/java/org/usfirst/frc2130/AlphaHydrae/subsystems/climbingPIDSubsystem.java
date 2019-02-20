@@ -71,7 +71,7 @@ public class climbingPIDSubsystem extends PIDSubsystem {
         // front motor and SUBTRACT the output from the back motor.
 
         // Add controller output on front to decrease speed if pitch is positive
-        Robot.elevatorPIDSubsystem.moveElevator(true, (-collectiveOutput) + output);
+        Robot.elevatorPIDSubsystem.applyPower((-collectiveOutput) + output);
 
         // Subtract controller output on back to increase speed if pitch is positive
         rearLiftMotor.set(collectiveOutput + output);
@@ -99,10 +99,10 @@ public class climbingPIDSubsystem extends PIDSubsystem {
 
     public void stopClimb() {
         // Turn everything off
-        Robot.elevatorSubsystem.setBrakeState(false);
+        Robot.elevatorPIDSubsystem.setBrakeState(false);
         disable();
         rearLiftMotor.set(0.0);
-        Robot.elevatorSubsystem.stopAllMotors();;
+        Robot.elevatorPIDSubsystem.stopAllMotors();;
         collectiveOutput = 0.0;
     }
 

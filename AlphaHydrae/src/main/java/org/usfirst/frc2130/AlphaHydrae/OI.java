@@ -179,5 +179,8 @@ public class OI {
     public boolean handlerPositionValue() {
         return changeHandlerPositionButton.get();
     }
+    public boolean rocketPlacementButtonValue() {
+        return rocketPlacementButton.get();
+    }
 }
 

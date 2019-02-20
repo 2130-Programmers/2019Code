@@ -138,7 +138,7 @@ public class driveTrainSubsystem extends Subsystem {
         if (limelightArea == 0) {
             return 0;
         } else {
-            if (output > 45) {
+            if (output > 25) {
                 return ((outputPercentage) * .8);
             } else {
                 return 0;
@@ -155,7 +155,7 @@ public class driveTrainSubsystem extends Subsystem {
     public double createOffset() {
         double x = limelightX;
 
-        return x / 35;
+        return x / 25;
     }
 
     public double returnLX() {

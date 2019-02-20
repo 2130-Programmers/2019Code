@@ -44,13 +44,13 @@ public class goToMidCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-    	Robot.elevatorPIDSubsystem.setSetpointWithBrake(4000);
+    	Robot.elevatorPIDSubsystem.setSetpointWithBrake(12625);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return Robot.elevatorPIDSubsystem.getProx("Mid");
+        return Robot.elevatorPIDSubsystem.getProx("Max");
     }
 
     // Called once after isFinished returns true
