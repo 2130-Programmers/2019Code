@@ -154,6 +154,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Output Value", Robot.driveTrainSubsystem.forwardUsingArea());
         SmartDashboard.putNumber("Offset", Robot.driveTrainSubsystem.createOffset());
         SmartDashboard.putNumber("Foot Enconder", Robot.climbingPIDSubsystem.footEncoderValue());
+        SmartDashboard.putNumber("I", Robot.elevatorPIDSubsystem.iValue());
         SmartDashboard.putNumber("Elevator Enconder", Robot.elevatorPIDSubsystem.elevatorEncoderValue());
     }
 }

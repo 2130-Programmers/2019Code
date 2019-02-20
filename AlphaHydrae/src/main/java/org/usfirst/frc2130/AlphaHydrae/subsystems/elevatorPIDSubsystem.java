@@ -25,6 +25,8 @@ public class elevatorPIDSubsystem extends PIDSubsystem {
     private String desiredProx;
     public boolean atClimbingSetpoint;
 
+    public int i;
+
     // Initialize your subsystem here
     public elevatorPIDSubsystem() {
         // TODO: These gains need to be updated. Start with P gain.
@@ -40,6 +42,8 @@ public class elevatorPIDSubsystem extends PIDSubsystem {
         //disable();
 
         atClimbingSetpoint = false;
+
+        i = 0;
 
         lowProx = new DigitalInput(0);
         addChild("lowProx",lowProx);
@@ -232,11 +236,7 @@ public class elevatorPIDSubsystem extends PIDSubsystem {
     	/* Currently this gives our loop a tolerance of 10 native encoder units. Once we are within this range,
     	 * the brake will engage and the loop will end, holding us position until a new setpoint is called*/
     	if(elevatorEncoderValue() > setpoint - 500 && elevatorEncoderValue() < setpoint + 500 && elevatorEncoderValue() > 1000) {
-    		setBrakeState(false);
-            stopAllMotors();
             atClimbingSetpoint = true;
-            disable();
-            
     	}
     	else {
             setSetpoint(setpoint);
@@ -249,6 +249,14 @@ public class elevatorPIDSubsystem extends PIDSubsystem {
     	//	disable();
     	//	stopAllMotors();
         //}
+    }
+
+    public void addI() {
+        i++;
+    }
+
+    public int iValue(){
+        return i;
     }
 
     public void engageClimbingFeet() {
